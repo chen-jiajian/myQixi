@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>慕课七夕主题</title>
+    
+    <link rel="stylesheet" href="page1.css"></style>
+    <link rel="stylesheet" href="page2.css"></style>
+    <link rel="stylesheet" href="page3.css"></style>
+    <style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    ul,
+    li {
+        list-style-type: none;
+    }
+   /*主体部分*/
+    #content {
+        width: 100%;
+        height: 100%;
+        /* top: 20%; */
+        overflow: hidden;
+        position: absolute;
+    }
+    
+    .content-wrap {
+        position: relative;
+    }
+    .content-wrap > li {
+        width: 100%;
+        height: 100%;
+        background: #CAE1FF;
+        color: red;
+        float: left;
+        overflow: hidden;
+        position: relative;
+    }
+    li:nth-child(2) {
+       background: #9BCD9B;
+    }
+   
+    li:nth-child(3) {
+       background: yellow;
+    }
+    .button {
+        position: absolute;
+        bottom: 0;
+    }
+    
+    </style>
+</head>
+
+<body>
+    <div id='content'>
+        <ul class='content-wrap'>
+            <!-- 第一副画面 -->
+            <li>
+                <div class="a_background">
+                    <div class="a_background_top"></div>
+                    <div class="a_background_middle"></div>
+                    <div class="a_background_botton"></div>
+                </div>
+                <!-- 云 -->
+                <div class="cloudArea">
+                    <div class="cloud cloud1"></div>
+                    <div class="cloud cloud2"></div>
+                </div>
+                <!-- 太阳 -->
+                <div id="sun" ></div>
+            </li>
+            <!-- 第二副画面 -->
+            <li>
+                <!-- 背景图 -->
+                <div class="b_background"></div>
+                <div class="b_background_preload"></div>
+                <!-- 商店 -->
+                <div class="shop">
+                    <div class="door">
+                        <div class="door-left"></div>
+                        <div class="door-right"></div>
+                    </div>
+                    
+                    <div class="lamp"></div>
+                </div>
+            </li>
+            <!-- 第三副画面 -->
+             <li>
+                <!-- 背景图 -->
+                <div class="c_background">
+                    <div class="c_background_top"></div>
+                    <div class="c_background_middle"></div>
+                    <div class="c_background_botton"></div>
+                </div>
+                <!-- 小女孩 -->
+                <div class="girl"></div>
+                <!-- 水波 -->
+                <div class="bridge-bottom">
+                    <div class="water">
+                        <div id="water1" class="water_1"></div>
+                        <div id="water2" class="water_2"></div>
+                        <div id="water3" class="water_3"></div>
+                        <div id="water4" class="water_4"></div>
+                    </div>
+                </div>
+                <!-- 星星 -->
+                <ul class="stars">
+                    <li class="stars1"></li>
+                    <li class="stars2"></li>
+                    <li class="stars3"></li>
+                    <li class="stars4"></li>
+                    <li class="stars5"></li>
+                    <li class="stars6"></li>
+                </ul>
+            </li>
+        </ul>
+         <div id="boy" class="charector "></div>
+          <div class="button">
+            <button id="btn_start">点击开始动画</button>
+             <button id="btn_stop">点击停止动画</button>
+        </div>
+    </div>
+
+	
+	<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>	
+	<script src="http://img.mukewang.com/down/55ac9a860001a6c500000000.js"></script>
+	<!-- 动画插件 -->
+	<script src="http://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
+    <script src="test.js"></script>
+	<script src="qixi.js"></script>
+    <script type="text/javascript">
+     $(function() {
+    
+        var container = $("#content");
+        var swipe = Swipe(container);
+        var visualWidth = container.width();
+        var visualHeight=container.height();
+        var boy=BoyWalk();
+         // 获取数据
+        var getValue = function(className) {
+            var $elem = $('' + className + '')
+            // 走路的路线坐标
+            return {
+                height: $elem.height(),
+                top: $elem.position().top
+            };
+        };
+        // 桥的Y轴
+        var bridgeY = function() {
+            var data = getValue('.c_background_middle');
+            return data.top;
+        }();
+        // 页面滚动到指定的位置
+        function scrollTo(time, proportionX) {
+            var distX = container.width() * proportionX;
+            swipe.scrollTo(distX, time);
+            
+        }
+        
+        //小女孩 //
+        var girl = {
+            elem: $('.girl'),
+            getHeight: function() {
+                return this.elem.height();
+            },
+            getOffset: function() {
+                return this.elem.offset();
+            },
+            setOffset: function() {
+                this.elem.css({
+                    left: visualWidth / 2,
+                    top: bridgeY - this.getHeight()
+                });
+            },
+             getWidth: function() {
+                return this.elem.width();
+            }
+        };
+
+        // 修正小女孩位置
+        girl.setOffset();
+        // 音乐配置
+        var audioConfig = {
+            enable: true, // 是否开启音乐
+            playURl: 'happy.wav', // 正常播放地址
+            cycleURL: 'circulation.wav' // 正常循环播放地址
+        };
+
+        /////////
+        //背景音乐 //
+        /////////
+        function Hmlt5Audio(url, isloop) {
+            var audio = new Audio(url);
+            audio.autoPlay = true;
+            audio.loop = isloop || false;
+            audio.play();
+            return {
+                end: function(callback) {
+                    audio.addEventListener('ended', function() {
+                        callback();
+                    }, false);
+                }
+            };
+        }
+        $('#btn_start').click(function(){
+            // 太阳公转
+            $("#sun").addClass('rotation');
+            // 飘云
+            $(".cloud:first").addClass('cloud1Move');
+            $(".cloud:last").addClass('cloud2Move');
+            /*音乐*/
+            var audio1 = Hmlt5Audio(audioConfig.playURl);
+            audio1.end(function() {
+                Hmlt5Audio(audioConfig.cycleURL, true);
+            });
+            //走路到中心
+            boy.walkTo(5000,0.5,0)
+            
+            .then(function(){
+                 scrollTo(10000, 1);//滑动的的时间，滑动距离的比例
+                 
+            })
+            
+            //第二次走
+            .then(function(){
+                return boy.walkTo(10000,0.5);//必须限制有先后关系的一定要用return？？
+            })
+            .then(function() {
+                //暂停走路
+                boy.stopWalk();
+            }).then(function(){
+                //开门
+                return boy.openDoor(2000);          
+            }).then(function(){
+                //亮灯
+                boy.lamp().bright();              
+            }).then(function(){
+                //进商店
+                return boy.toShop();
+            }).then(function(){
+                //取花
+                return boy.talkFlower();
+            }).then(function(){
+                //出商店
+                return boy.outShop();
+            }).then(function(){
+                // 关门
+                return boy.closeDoor(2000);
+            }).then(function() {
+                // 灯暗
+                 boy.lamp().dark();
+            }).then(function() {
+                // 继续走
+                 scrollTo(5000,2);
+            }).then(function() {
+                // 走
+                return boy.walkTo(5000, 0.15);
+            }).then(function() {
+                // 往桥上走
+               return boy.walkTo(2000, 0.25, (girl.getOffset().top ) / visualHeight);
+            }).then(function() {
+                // 走到女孩身边
+                var boyWidth = $("#boy").width();
+                var girlLeft = girl.getOffset().left;
+                var pro = ( girlLeft - boyWidth)/visualWidth;   
+               return boy.walkTo(2500, pro);
+            }).then(function() {
+                boy.stopWalk();
+            })
+
+            // 第一次走路到桥底边left,top
+             //scrollTo(1,2)
+            /*boy.walkTo(2000, 0.15)
+            .then(function() {
+                // 第二次走路到桥上left,top
+                console.log(bridgeY);
+                return boy.walkTo(1500, 0.25, (bridgeY - girl.getHeight()) / visualHeight);
+            })
+            .then(function() {
+                // 实际走路的比例
+                var proportionX = (girl.getOffset().left - boy.getWidth() + girl.getWidth() / 5) / visualWidth;
+                // 第三次桥上直走到小女孩面前
+                return boy.walkTo(1500, proportionX);
+            }).then(function() {
+                // 图片还原原地停止状态
+                //boy.resetOriginal();
+            });*/
+            
+        });
+        $('#btn_stop').click(function(){
+            boy.closeDoor(2000);
+        })
+    });
+    </script>
+</body>
+
+</html>
