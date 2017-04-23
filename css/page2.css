@@ -1,0 +1,51 @@
+/*背景图*/
+
+.b_background {
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/QixiB-dark.png");
+    background-size: 100% 100%;
+    position: absolute;
+}
+/* 预加载亮灯背景 */
+.b_background_preload {
+    background: url("../images/QixiB-bright.png") no-repeat -9999px -9999px;
+}
+/* 亮灯背景 */
+.lamp-bright {
+   background-image: url("../images/QixiB-bright.png");
+}
+.shop{
+	width: 39.5%;
+	height: 35.5%;
+	position: absolute;
+	left: 29%;
+	top:36.5%;
+
+}
+.door{
+	position: absolute;
+	width: 32%;
+	height: 68%;
+    left: 58.5%;
+    top: 32%;   
+    overflow: hidden;/* 开关门会用到 */
+    
+}
+.door-left,
+.door-right {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+}
+.door-left {
+    left: 0%;
+    background: url("../images/door-left.png");
+    background-size: 100% 100%;
+}
+
+.door-right {
+    left: 50%;
+    background: url("../images/door-right.png");
+    background-size: 100% 100%;
+}
