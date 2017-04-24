@@ -33,18 +33,15 @@
     .content-wrap > li {
         width: 100%;
         height: 100%;
-        background: #CAE1FF;
         color: red;
         float: left;
         overflow: hidden;
         position: relative;
     }
     li:nth-child(2) {
-       background: #9BCD9B;
     }
    
     li:nth-child(3) {
-       background: yellow;
     }
     .button {
         position: absolute;
@@ -86,6 +83,8 @@
                     
                     <div class="lamp"></div>
                 </div>
+                <!-- 鸟 -->
+                <div class="bird"></div>
             </li>
             <!-- 第三副画面 -->
              <li>
@@ -185,10 +184,19 @@
         // 音乐配置
         var audioConfig = {
             enable: true, // 是否开启音乐
-            playURl: 'happy.wav', // 正常播放地址
-            cycleURL: 'circulation.wav' // 正常循环播放地址
+            playURl: 'music/happy.wav', // 正常播放地址
+            cycleURL: 'music/circulation.wav' // 正常循环播放地址
         };
-
+        //飞鸟
+         var bird = {
+            elem: $(".bird"),
+            fly: function() {
+                this.elem.addClass('birdFly')
+                this.elem.transition({
+                    right: container.width()
+                }, 15000, 'linear');
+            }
+        };
         /////////
         //背景音乐 //
         /////////
@@ -226,7 +234,7 @@
             
             //第二次走
             .then(function(){
-                return boy.walkTo(10000,0.5);//必须限制有先后关系的一定要用return？？
+                return boy.walkTo(10000,0.5);//必须限制有先后关系的一定要用return
             })
             .then(function() {
                 //暂停走路
@@ -247,6 +255,11 @@
                 //出商店
                 return boy.outShop();
             }).then(function(){
+                //暂停走路
+                 boy.stopWalk();
+            }).then(function(){
+                //小鸟飞过
+                bird.fly();
                 // 关门
                 return boy.closeDoor(2000);
             }).then(function() {
@@ -255,9 +268,7 @@
             }).then(function() {
                 // 继续走
                  scrollTo(5000,2);
-            }).then(function() {
-                // 走
-                return boy.walkTo(5000, 0.15);
+                 return boy.walkTo(5000, 0.15);
             }).then(function() {
                 // 往桥上走
                return boy.walkTo(2000, 0.25, (girl.getOffset().top ) / visualHeight);
