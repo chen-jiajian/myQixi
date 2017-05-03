@@ -1,4 +1,4 @@
-/*±³¾°Í¼*/
+/* 背景 */
 
 .a_background {
     width: 100%;
@@ -27,46 +27,44 @@
     background-image: url("../images/background/a_background_botton.png");
     background-size: 100% 100%;
 }
-/* Ð¡ÄÐº¢ */
-     .charector {
-        width: 151px;
-        height: 291px;
-        background: url("../images/boy.png") -0px -291px no-repeat;
-        position: absolute;
-        /* ÉèÖÃÒ»¸öÔªËØµÄ×ø±ê */
-        left: 6%;
-        top: 55%;
-    }
-    /* Ð¡ÄÐº¢end */
-    /* ×ßÂ· */
-     .slowWalk {
-         /* ÌîÈë¶¯»­ÑùÊ½¹æÔò */
-          /*¹æ¶¨ @keyframes ¶¯»­µÄÃû³Æ¡£*/
+/* 背景end */
+
+.charector {
+    width: 151px;
+    height: 291px;
+    background: url("../images/boy.png") -0px -291px no-repeat;
+    position: absolute;
+    left: 6%;
+    top: 55%;
+}
+.slowWalk {
+    /* chrome */
     -webkit-animation-name: person-slow; 
-    /*¹æ¶¨¶¯»­Íê³ÉÒ»¸öÖÜÆÚËù»¨·ÑµÄÃë»òºÁÃë¡£Ä¬ÈÏÊÇ 0*/
+    /*完成动画时间*/
     -webkit-animation-duration: 950ms;
-    /*¹æ¶¨¶¯»­±»²¥·ÅµÄ´ÎÊý¡£Ä¬ÈÏÊÇ 1¡£ infinite(Ñ­»·²¥·Å)*/
+    /*播放动画的模式*/
     -webkit-animation-iteration-count: infinite;
-    /*¶¯»­ÇÐ»»µÄ·½Ê½ÊÇÒ»Ö¡Ò»Ö¡µÄ¸Ä±ä*/
     -webkit-animation-timing-function: steps(1, start);
+    /* fixfox */
     -moz-animation-name: person-slow;
     -moz-animation-duration: 950ms;
     -moz-animation-iteration-count: infinite;
     -moz-animation-timing-function: steps(1, start)
-    }
-    .pauseWalk{
-        -webkit-animation-play-state:paused;
-        -moz-animation-play-state:paused;
-    }
+}
+.pauseWalk{
+    /* 暂停 */
+    -webkit-animation-play-state:paused;
+    -moz-animation-play-state:paused;
+}
     
-    /* ÆÕÍ¨Âý×ß chrome*/
+    /* chrome*/
     
     @-webkit-keyframes person-slow {
         0% {
            background-position: 0px -291px;
         }
         25% {
-            background-position: -602px -0px;/* µÚÎå¸ö */
+            background-position: -602px -0px;
         }
         50% {
             background-position: -302px -291px;
@@ -78,7 +76,7 @@
             background-position: -0px -291px;
         }
     }
-    /* fixfox¼æÈÝ */
+    /* fixfox */
     @-moz-keyframes person-slow {
         0% {
             background-position: -0px -291px;
@@ -96,9 +94,9 @@
             background-position: -0px -291px;
         }
     }
-    /* ×ßÂ·end */
+    /*end */
 
-    /* ÄÃ»¨×ßÂ· */
+    /* 拿花走路· */
     .slowFlowerWalk{
         -webkit-animation-name:personFlower-slow;
         -webkit-animation-duration:950ms;
@@ -150,9 +148,9 @@
         }
     }
 
-    /* ÄÃ»¨×ßÂ·end */
+    /* 拿花走路end */
 
-    /* Ì«Ñô */
+    /* 太阳 */
      #sun {
             background: url("../images/sun.png") no-repeat;
             position: absolute;
@@ -168,6 +166,7 @@
         -moz-animation-name:rotation;
         -moz-animation-duration:30s;
     }
+    /* 下山动画 */
     @-webkit-keyframes rotation{/* chrome */
         0%{
             transform:translateX(0) translateY(0);
@@ -188,9 +187,9 @@
             transform:translateX(-2000px) translateY(400px);
         }
     }
-    /* Ì«Ñôend */
+    /* 太阳end */
 
-    /* ÔÆ¶ä */
+    /* 云 */
     .cloud{
         z-index: 2;/* ÓÅÏÈ¼¶ */
         position:absolute;
@@ -244,20 +243,20 @@
              left: 100%;
         }
      }
-      @-webkit-keyframes largeCloud {
-            0% {
-                right: -5%;
-            }
-            100% {
-                right: 100%;
-            }
+    @-webkit-keyframes largeCloud {
+        0% {
+            right: -5%;
         }
-        
-        @-moz-keyframes largeCloud {
-            0% {
-                right: -5%;
-            }
-            100% {
-                right: 100%;
-            }
+        100% {
+            right: 100%;
         }
+    }
+
+    @-moz-keyframes largeCloud {
+        0% {
+            right: -5%;
+        }
+        100% {
+            right: 100%;
+        }
+    }

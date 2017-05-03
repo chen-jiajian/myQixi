@@ -27,16 +27,16 @@ function BoyWalk(){
             return data.top + data.height / 2;
         }();
 
+        // 小男孩
         var $boy = $("#boy");
         var boyHeight = $boy.height();
 
         // 修正小男孩的正确位置
-        // 路的中间位置减去小孩的高度，25是一个修正值
         $boy.css({
 		    top: pathY - boyHeight + 25
 		 });
         
-	        // jquery封装的transition方法      
+	        // jquery的transition方法      
 	       /* $boy.transition({
 			    'left': $("#content").width() + 'px',
 			}, 10000,'linear');*/
@@ -57,6 +57,7 @@ function BoyWalk(){
         function slowWalk(){
             $boy.addClass('slowWalk');
         }
+        //暂停走路
         function pauseWalk(){
             $boy.removeClass('slowWalk');
             $boy.addClass('pauseWalk');
@@ -92,15 +93,14 @@ function BoyWalk(){
                 options,
                 time,
                 'linear',
-                  function() {
+                function() {
                     //pauseWalk();
                     dfdPlay.resolve(); // 动画完成
-            });
-            return dfdPlay;
-        }
+                });
+                return dfdPlay;
+            }
 
         /*开门*/
-
         function doorOpen(time,options){
             var d2=startOpen(options,time);
             return d2;
